@@ -14,6 +14,8 @@ class ServicePurchaseOrder extends Model
         'service_purchase_request_id',
         'vendor_id',
         'order_date',
+        'bill_no',
+        'description',
         'status'
     ];
 
@@ -36,4 +38,10 @@ class ServicePurchaseOrder extends Model
     {
         return $this->belongsTo(ProductService::class);
     }
+
+    public function service_purchase_order_items()
+    {
+        return $this->hasMany(ServicePurchaseOrderItem::class);
+    }
+
 }

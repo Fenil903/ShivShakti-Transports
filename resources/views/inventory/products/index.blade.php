@@ -56,19 +56,25 @@
                     <th>Unit</th>
                     <th>Price</th>
                     <th>Stock Quantity</th>
+                    <th>Minimum Stock</th>
                     <th>Total Received</th>
                     <th width="15%">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($products as $product)
+                @if($product->stock <= $product->min_qty)
+                    <tr class="table-danger">
+                @else
                     <tr>
+                @endif
                         <td>{{ $product->id }}</td>
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->category->category_name }}</td>
                         <td>{{ $product->unit->unit_name }}</td>
                         <td>{{ $product->price }}</td>
-                        <td>{{ $product->stock }}</td>
+                        <td>{{ $product->stock }} - {{ $product->unit->unit_name }}</td>
+                        <td>{{ $product->min_qty ?? 0 }} - {{ $product->unit->unit_name }}</td>
                         <td>
                             @php
                                 $totalReceived = \DB::table('purchase_order_items')

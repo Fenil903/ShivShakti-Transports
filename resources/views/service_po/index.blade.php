@@ -37,11 +37,19 @@
                             <option value="0">Unbilled</option>
                         </select>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                     <label>Vendor</label>
                         <select name="vendor_id[]" class="basic-multiple form-control" multiple="multiple" placeholder="Select Vendor">
                             @foreach ($vendors as $vendor)
                                 <option value="{{ $vendor->id }}" {{ request('vendor_id') == $vendor->id ? 'selected' : '' }}>{{ $vendor->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                    <label>Services</label>
+                        <select name="productServices_id[]" class="basic-multiple form-control" multiple="multiple" placeholder="Select Services">
+                            @foreach ($productServices as $productService)
+                                <option value="{{ $productService->id }}" {{ request('productServices_id') == $productService->id ? 'selected' : '' }}>{{ $productService->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -60,13 +68,16 @@
         @endif
     </div>
     <div class="card-body">
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="example1">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>SO Number</th>
+                    <th>Date</th>
+                    <th>SU Number</th>
+                    <th>Bill Number</th>
+                    <th>Services</th>
                     <th>Vendor</th>
-                    <th>SO Date</th>
+                    <th>Amount</th>
                     <th>Status</th>
                     <th>Billed</th>
                     <th width="10%">Actions</th>
@@ -76,9 +87,13 @@
                 @foreach($orders as $key => $po)
                 <tr class="{{ $po->status == 'completed' ? 'bg-secondary' : '' }}">
                     <td>{{ $key + 1 }}</td>
+                    <td>{{ $po->order_date }}</td>
                     <td>{{ $po->order_number }}</td>
+                    <td>{{ $po->bill_no }}</td>
+                    <td>{{ $po->items[0]->service->name }}</td>
                     <td>{{ $po->vendor ? $po->vendor->name : 'N/A' }}</td>
-                    <td>{{ $po->order_date   }}</td>
+                    <!-- <td>{{ $po->items[0]->service->cost }}</td> -->
+                    <td>₹{{ number_format($po->items->sum(fn($item) => $item->quantity * $item->unit_price), 2) }}</td>
                     <td>
                         <form action="{{ route('service_po.updateStatus', $po->id) }}" method="POST" class="d-inline">
                             @csrf
