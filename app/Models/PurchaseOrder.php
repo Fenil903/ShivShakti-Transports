@@ -15,7 +15,9 @@ class PurchaseOrder extends Model
         'purchase_request_id',
         'status',
         'billed',
+        'bill_no',
         'gr_number',
+        'created_at',
     ];
     public function purchaseRequest()
     {

@@ -35,12 +35,27 @@
 
             <!-- Products from Purchase Request -->
             @if ($selectedRequest)
-            <!-- Select Supplier -->
-            <div class="form-group">
-                <label for="supplier_id">Supplier</label>
-                <input type="text" name="supplier" id="supplier" class="form-control" value="{{$suppliers->name}}" readonly>
-                <input type="hidden" name="supplier_id" id="supplier_id" class="form-control" value="{{$suppliers->id}}" readonly>
-
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Select Supplier -->
+                    <label for="supplier_id">Supplier</label>
+                    <input type="text" name="supplier" id="supplier" class="form-control" value="{{$suppliers->name}}" readonly>
+                    <input type="hidden" name="supplier_id" id="supplier_id" class="form-control" value="{{$suppliers->id}}" readonly>
+                </div>
+                <div class="col-md-3">
+                    <label for="created_at">Date</label>
+                    <input type="date" name="created_at" id="created_at" class="form-control" value="{{ old('created_at',\Carbon\Carbon::parse($selectedRequest->created_at)->format('Y-m-d')) }}">
+                </div>
+                <div class="col-md-3">
+                    <label for="bill_no">Bill Number</label>
+                    <input type="text" name="bill_no" id="bill_no" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" class="form-control">{{ old('description', $selectedRequest->description) }}</textarea>
+                </div>
             </div>
 
             <div class="form-group">

@@ -11,8 +11,8 @@
         @csrf
         <div class="card-body">
             <div class="row">
-                <div class="col-md-3">
-                    <label for="gr_number">GR Number</label>
+                <div class="col-md-2">
+                    <label for="gr_number">SR Number</label>
                     <input type="text" name="gr_number" id="gr_number" class="form-control" value="{{$gr_number}}" readonly>
                 </div>
                 <div class="col-md-6">
@@ -28,9 +28,13 @@
                             @endforeach
                     </select>
                 </div>
-                <div class="col-md-3">
-                    <label for="order_date">SO Date</label>
+                <div class="col-md-2">
+                    <label for="order_date">SU Date</label>
                     <input type="date" name="order_date" class="form-control" required>
+                </div>
+                <div class="col-md-2">
+                    <label for="bill_no">Bill Number</label>
+                    <input type="text" name="bill_no" id="bill_no" class="form-control" value="{{ old('bill_no') }}">
                 </div>
             </div>
 
@@ -42,6 +46,13 @@
                 <input type="text" name="vendors" id="vendors" class="form-control" value="{{$vendors->name}}" readonly>
                 <input type="hidden" name="vendors_id" id="vendors_id" class="form-control" value="{{$vendors->id}}" readonly>
 
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" class="form-control">{{ old('description', $selectedRequest->description) }}</textarea>
+                </div>
             </div>
 
             <div class="form-group">

@@ -7,7 +7,7 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">SR-SO Report</h3>
+        <h3 class="card-title">SR-SU Report</h3>
     </div>
     <div class="card-body">
         <form method="GET" action="{{ route('service_pr.report') }}">
@@ -51,6 +51,7 @@
                     <th>#</th>
                     <th>Request Number</th>
                     <th>Vendor</th>
+                    <th>Service</th>
                     <th>Requested By</th>
                     <th>Request Date</th>
                     <th>Status</th>
@@ -63,6 +64,7 @@
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $request->request_number }}</td>
                     <td>{{ $request->vendor ? $request->vendor->name : 'N/A' }}</td>
+                    <td>{{ $request->services[0]->name }}</td>
                     <td>{{ $request->requester->name }}</td>
                     <td>{{ $request->request_date }}</td>
                     <td>

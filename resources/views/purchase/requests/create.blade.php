@@ -10,9 +10,24 @@
     <form action="{{ route('purchase.requests.store') }}" method="POST">
         @csrf
         <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" class="form-control" placeholder="Enter request title" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="title">Date</label>
+                    <input type="date" name="created_at" class="form-control">
+                </div>
+            </div>
             <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" name="title" class="form-control" placeholder="Enter request title" required>
+                <label for="supplier_id">Supplier</label>
+                <select name="supplier_id" id="supplier_id" class="form-control" required>
+                    <option value="">Select Supplier</option>
+                    @foreach ($suppliers as $supplier)
+                        <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
@@ -26,15 +41,7 @@
                     <option value="high">High</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="supplier_id">Supplier</label>
-                <select name="supplier_id" id="supplier_id" class="form-control" required>
-                    <option value="">Select Supplier</option>
-                    @foreach ($suppliers as $supplier)
-                        <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+            
             <div class="form-group">
                 <label for="items">Request Items</label>
                 <div id="items-container">

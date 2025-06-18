@@ -67,8 +67,11 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Order Number</th>
+                        <th>GR Number</th>
+                        <th>Bill Number</th>
+                        <th>Date</th>
                         <th>Supplier</th>
+                        <th>Amount</th>
                         <th>Status</th>
                         <th>Billed</th>
                         <th>Actions</th>
@@ -78,8 +81,11 @@
                     @foreach ($purchaseOrders as $order)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $order->order_number }}</td>
+                            <td>{{ $order->gr_number }}</td>
+                            <td>{{ $order->bill_no ?? 'N/A' }}</td>
+                            <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d-m-Y') }}</td>
                             <td>{{ $order->supplier->name ?? 'N/A'  }}</td>
+                            <td>₹{{ number_format($order->items->sum(fn($item) => $item->quantity * $item->price), 2) }}</td>
                             <td>
                                 @if ($usr->can('orders.edit'))
                                 <form action="{{ route('purchase.orders.updateStatus', $order->id) }}" method="POST" class="d-inline">
